@@ -29,6 +29,9 @@ return postData.posts.map(post =>{
 getPostUpdateListener(){
   return this.postsUpdated.asObservable();
 }
+getPost(id: string){
+  return {...this.posts.find(p => p.id === id)};
+}
 
 addPost(title : string, content : string){
   const post: Posts = {id: null, title: title, content: content};
@@ -40,6 +43,14 @@ addPost(title : string, content : string){
     this.postsUpdated.next([...this.posts]);
   });
 }
+
+updatePost(id: string, title: string, content: string){
+  const post:Posts = {id: id, title: title, content: content};
+  this.http.put("http://localhost:3000/api/posts/" + id,post)
+  .subscribe(response => console.log(response));
+
+}
+
 deletePost(postId: string) {
   this.http.delete("http://localhost:3000/api/posts/" + postId)
     .subscribe(() => {
