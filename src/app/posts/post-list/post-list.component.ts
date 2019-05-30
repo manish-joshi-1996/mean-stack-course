@@ -19,8 +19,12 @@ this.postsSub = this.postsService.getPostUpdateListener().subscribe((posts:Posts
   this.posts = posts;
 });
   }
+  onDelete(postId: string){
+    this.postsService.deletePost(postId);
+      }
 
   ngOnDestroy(){
     this.postsSub.unsubscribe();
   }
+
 }
